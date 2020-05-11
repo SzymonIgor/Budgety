@@ -17,8 +17,10 @@ from django.db.models import Q
 def index(request):
     expense_items = ExpenseInfo.objects.filter(user_expense=request.user).order_by('-date_added')
     try:
-        income_total = ExpenseInfo.objects.filter(user_expense=request.user).aggregate(income=Sum('cost',filter=Q(cost__gt=0)))
-        expense_total = ExpenseInfo.objects.filter(user_expense=request.user).aggregate(expenses=Sum('cost',filter=Q(cost__lt=0)))
+        income_total = ExpenseInfo.objects.filter(user_expense=request.user).\
+            aggregate(income=Sum('cost', filter=Q(cost__gt=0)))
+        expense_total = ExpenseInfo.objects.filter(user_expense=request.user).\
+            aggregate(expenses=Sum('cost', filter=Q(cost__lt=0)))
 
     except TypeError:
         print('No data.')
@@ -33,8 +35,9 @@ def index(request):
         expenses_prc = round(expenses/income * 100, 2)
     except:
         expenses_prc = 0
-    context = {'expense_items':expense_items,'income':income,'expenses':expenses, 'budget_current':budget_current, 'expenses_prc':expenses_prc}
-    return render(request,'budget_app/index.html',context=context)
+    context = {'expense_items':expense_items, 'income':income,'expenses': expenses, 'budget_current': budget_current,
+               'expenses_prc':expenses_prc}
+    return render(request, 'budget_app/index.html', context=context)
 
 
 @login_required(login_url='/')
@@ -43,7 +46,8 @@ def add_item(request):
         name = request.POST['expense_name']
         expense_cost = request.POST['cost']
         date_added = request.POST['date_added']
-        ExpenseInfo.objects.create(expense_name=name, cost=expense_cost, date_added=date_added, user_expense=request.user)
+        ExpenseInfo.objects.create(expense_name=name, cost=expense_cost, date_added=date_added,
+                                   user_expense=request.user)
     except:
         messages.error(request, "Please fill up all of the fields below to add an item")
     return HttpResponseRedirect('app')

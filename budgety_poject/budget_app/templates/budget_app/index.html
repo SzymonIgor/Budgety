@@ -1,30 +1,27 @@
 {% load static %}
-
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
-        <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,600" rel="stylesheet" type="text/css">
+	<link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
 
 
-		<link rel="stylesheet" href="{% static 'style.css' %}">
-		<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
-        <title>Budgety</title>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+	<link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+	<title>Budgety</title>
 
-       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-		<script type="text/javascript">
-			document.addEventListener('DOMContentLoaded', function() {
-				var elems = document.querySelectorAll('.datepicker');
-				var instances = M.Datepicker.init(elems, {format:'yyyy-mm-dd'});
-			});
-		</script>
-    </head>
-	
+	<script type="text/javascript">
+		document.addEventListener('DOMContentLoaded', function() {
+			var elems = document.querySelectorAll('.datepicker');
+			var instances = M.Datepicker.init(elems, {format:'yyyy-mm-dd'});
+		});
+	</script>
+</head>
 <body>
 	<div class="top">
 		<div class="Logout">
@@ -39,7 +36,6 @@
 				<br>
 				Your balance for today is:
 			</div>
-			
 			<div class="budget__value">{{ budget_current }}</div>
 			<div class="budget__income clearfix">
 				<div class="budget__income--text">Income</div>
@@ -48,7 +44,6 @@
 					<div class="budget__income--percentage">&nbsp;</div>
 				</div>
 			</div>
-			
 			<div class="budget__expenses clearfix">
 				<div class="budget__expenses--text">Expenses</div>
 				<div class="right">
@@ -78,7 +73,8 @@
 			<form method='post' action = '{% url "add item" %}'>
 				{% csrf_token %}
 				{{form.as_p}}
-				<input type="text" class="add__description" placeholder="Add description" name="expense_name" id="expense_name">
+				<input type="text" class="add__description" placeholder="Add description" name="expense_name"
+					   id="expense_name">
 				<input type="number" class="add__value" placeholder="Value" name="cost"; id="cost">
 				<input type="text" class='datepicker' placeholder='Date of Expense' name="date_added" id="date_added">
 
